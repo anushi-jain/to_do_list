@@ -4,15 +4,14 @@
 var addButton = document.getElementById('addButton');
 var addInput = document.getElementById('itemInput');
 var todoList = document.getElementById('todoList');
-var listArray = [];
+let listArray = [];
 
 function listItemObj(content, status) {
     this.content = '';
     this.status = 'incomplete';
 }
-var changeToComp = function(){
+const changeToComp = function(){
     var parent = this.parentElement;
-    console.log('Changed to complete');
     parent.className = 'uncompleted well';
     this.innerText = 'Incomplete';
     this.removeEventListener('click',changeToComp);
@@ -21,9 +20,8 @@ var changeToComp = function(){
 
 }
 
-var changeToInComp = function(){
+const changeToInComp = function(){
     var parent = this.parentElement;
-    console.log('Changed to incomplete');
     parent.className = 'completed well';
     this.innerText = 'Complete';
     this.removeEventListener('click',changeToInComp);
@@ -33,7 +31,7 @@ var changeToInComp = function(){
 
 }
 
-var removeItem = function(){
+const removeItem = function(){
     var parent = this.parentElement.parentElement;
     parent.removeChild(this.parentElement);
 
@@ -50,7 +48,7 @@ var removeItem = function(){
 
 }
 
-var changeListArray = function(data,status){
+const changeListArray = function(data,status){
 
     for(var i=0; i < listArray.length; i++){
 
@@ -62,7 +60,7 @@ var changeListArray = function(data,status){
     }
 }
 
-var createItemDom = function(text,status){
+const createItemDom = function(text,status){
 
     var listItem = document.createElement('li');
 
@@ -95,13 +93,13 @@ var createItemDom = function(text,status){
     return listItem;
 }
 
-var refreshLocal = function(){
+const refreshLocal = function(){
     var todos = listArray;
     localStorage.removeItem('todoList');
     localStorage.setItem('todoList', JSON.stringify(todos));
 }
 
-var addToList = function(){
+const addToList = function(){
     var newItem = new listItemObj();
     newItem.content = addInput.value;
     listArray.push(newItem);
@@ -111,7 +109,7 @@ var addToList = function(){
     addInput.value = '';
 }
 
-var clearList = function(){
+const clearList = function(){
     listArray = [];
     localStorage.removeItem('todoList');
     todoList.innerHTML = '';
