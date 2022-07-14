@@ -1,9 +1,7 @@
 
-
-
-var addButton = document.getElementById('addButton');
-var addInput = document.getElementById('itemInput');
-var todoList = document.getElementById('todoList');
+const addButton = document.getElementById('addButton');
+let addInput = document.getElementById('itemInput');
+const todoList = document.getElementById('todoList');
 let listArray = [];
 
 function listItemObj(content, status) {
@@ -11,7 +9,7 @@ function listItemObj(content, status) {
     this.status = 'incomplete';
 }
 const changeToComp = function(){
-    var parent = this.parentElement;
+    const parent = this.parentElement;
     parent.className = 'uncompleted well';
     this.innerText = 'Incomplete';
     this.removeEventListener('click',changeToComp);
@@ -21,7 +19,7 @@ const changeToComp = function(){
 }
 
 const changeToInComp = function(){
-    var parent = this.parentElement;
+    const parent = this.parentElement;
     parent.className = 'completed well';
     this.innerText = 'Complete';
     this.removeEventListener('click',changeToInComp);
@@ -32,11 +30,11 @@ const changeToInComp = function(){
 }
 
 const removeItem = function(){
-    var parent = this.parentElement.parentElement;
+    const parent = this.parentElement.parentElement;
     parent.removeChild(this.parentElement);
 
-    var data = this.parentElement.firstChild.innerText;
-    for(var i=0; i < listArray.length; i++){
+    const data = this.parentElement.firstChild.innerText;
+    for(let i=0; i < listArray.length; i++){
 
         if(listArray[i].content == data){
             listArray.splice(i,1);
@@ -50,7 +48,7 @@ const removeItem = function(){
 
 const changeListArray = function(data,status){
 
-    for(var i=0; i < listArray.length; i++){
+    for(let i=0; i < listArray.length; i++){
 
         if(listArray[i].content == data){
             listArray[i].status = status;
@@ -62,13 +60,13 @@ const changeListArray = function(data,status){
 
 const createItemDom = function(text,status){
 
-    var listItem = document.createElement('li');
+    const listItem = document.createElement('li');
 
-    var itemLabel = document.createElement('label');
+    const itemLabel = document.createElement('label');
 
-    var itemCompBtn = document.createElement('button');
+    const itemCompBtn = document.createElement('button');
 
-    var itemIncompBtn = document.createElement('button');
+    const itemIncompBtn = document.createElement('button');
 
     listItem.className = (status == 'incomplete')?'completed well':'uncompleted well';
 
@@ -94,17 +92,17 @@ const createItemDom = function(text,status){
 }
 
 const refreshLocal = function(){
-    var todos = listArray;
+    const todos = listArray;
     localStorage.removeItem('todoList');
     localStorage.setItem('todoList', JSON.stringify(todos));
 }
 
 const addToList = function(){
-    var newItem = new listItemObj();
+    const newItem = new listItemObj();
     newItem.content = addInput.value;
     listArray.push(newItem);
     refreshLocal();
-    var item = createItemDom(addInput.value,'incomplete');
+    const item = createItemDom(addInput.value,'incomplete');
     todoList.appendChild(item);
     addInput.value = '';
 }
@@ -117,16 +115,16 @@ const clearList = function(){
 }
 
 window.onload = function(){
-    var list = localStorage.getItem('todoList');
+    const list = localStorage.getItem('todoList');
 
     if (list != null) {
         todos = JSON.parse(list);
         listArray = todos;
 
-        for(var i=0; i<listArray.length;i++){
-            var data = listArray[i].content;
+        for(let i=0; i<listArray.length;i++){
+            const data = listArray[i].content;
 
-            var item = createItemDom(data,listArray[i].status);
+            const item = createItemDom(data,listArray[i].status);
             todoList.appendChild(item);
         }
 
